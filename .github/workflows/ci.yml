@@ -41,7 +41,7 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Detekt
         run: ./gradlew detekt --stacktrace --no-configuration-cache
@@ -74,7 +74,7 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Unit tests
         run: ./gradlew :app:testDebugUnitTest --stacktrace --no-configuration-cache
@@ -114,7 +114,7 @@ jobs:
           yes | sdkmanager --licenses >/dev/null || true
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Assemble debug APK
         run: ./gradlew :app:assembleDebug --stacktrace --no-configuration-cache
@@ -161,7 +161,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
 
       - name: Detekt reports for Sonar
         run: ./gradlew detekt --stacktrace --no-configuration-cache
