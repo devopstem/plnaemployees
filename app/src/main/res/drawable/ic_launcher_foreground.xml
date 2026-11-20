@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Safe zone ~66dp centered: rack frame + shelves -->
+    <!-- Purple rack uprights -->
+    <path
+        android:fillColor="#7B6CF0"
+        android:pathData="M34,30 h6 v48 h-6 z" />
+    <path
+        android:fillColor="#7B6CF0"
+        android:pathData="M68,30 h6 v48 h-6 z" />
+    <!-- Top bar -->
+    <path
+        android:fillColor="#7B6CF0"
+        android:pathData="M34,30 h40 v5 h-40 z" />
+    <!-- Cyan shelves -->
+    <path
+        android:fillColor="#2EC4B6"
+        android:pathData="M36,42 h36 v4 h-36 z" />
+    <path
+        android:fillColor="#2EC4B6"
+        android:pathData="M36,54 h36 v4 h-36 z" />
+    <path
+        android:fillColor="#2EC4B6"
+        android:pathData="M36,66 h36 v4 h-36 z" />
+    <!-- Product silhouettes on middle shelf -->
+    <path
+        android:fillColor="#A89BFF"
+        android:pathData="M42,46 h5 v8 h-5 z" />
+    <path
+        android:fillColor="#9BE8DF"
+        android:pathData="M51,44 h6 v10 h-6 z" />
+    <path
+        android:fillColor="#A89BFF"
+        android:pathData="M61,47 h5 v7 h-5 z" />
+    <!-- Bottom foot -->
+    <path
+        android:fillColor="#2EC4B6"
+        android:pathData="M32,78 h44 v3 h-44 z" />
+</vector>

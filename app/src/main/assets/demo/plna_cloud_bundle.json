@@ -1,0 +1,443 @@
+{
+  "meta": {
+    "version": 5,
+    "source": "cloud",
+    "note": "Cloud v5 with iconHint tokens"
+  },
+  "user": {
+    "uid": "demo-user",
+    "name": "User",
+    "role": "Мерчандайзер",
+    "storeId": "gippo-momo-demo"
+  },
+  "store": {
+    "id": "gippo-momo-demo",
+    "name": "Гиппо МОМО (demo)",
+    "address": "партизанский проспект. 150а",
+    "city": "Минск",
+    "latitude": 53.8599337,
+    "longitude": 27.673879,
+    "radiusMeters": 100,
+    "tenantId": "demo-tenant"
+  },
+  "products": [
+    {
+      "barcode": "4810014020903",
+      "name": "Квас Бачкавы 0.45 л",
+      "category": "Квас Белорусский",
+      "checked": false,
+      "isPrivate": false,
+      "iconHint": "kvas"
+    },
+    {
+      "barcode": "4810285008419",
+      "name": "Квас Лидский темный 1 л ПЭТ",
+      "category": "Квас Белорусский",
+      "checked": true,
+      "isPrivate": false,
+      "iconHint": "kvas"
+    },
+    {
+      "barcode": "4810014018641",
+      "name": "Квас Старажытны Бачкавы темный 1.4 л",
+      "category": "Квас Белорусский",
+      "checked": true,
+      "isPrivate": false,
+      "iconHint": "kvas"
+    },
+    {
+      "barcode": "4810014018658",
+      "name": "Квас Лидский Хлебный 0.45 л",
+      "category": "Квас Белорусский",
+      "checked": false,
+      "isPrivate": false,
+      "iconHint": "kvas"
+    },
+    {
+      "barcode": "4810268030123",
+      "name": "Вода Минская негаз 1.5 л (cloud)",
+      "category": "Вода Минская",
+      "checked": false,
+      "isPrivate": false,
+      "iconHint": "water"
+    },
+    {
+      "barcode": "4810268030451",
+      "name": "Вода Минская газ 1 л",
+      "category": "Вода Минская",
+      "checked": true,
+      "isPrivate": false,
+      "iconHint": "water"
+    },
+    {
+      "barcode": "4600702099888",
+      "name": "Coca-Cola 0.5 л",
+      "category": "Напитки",
+      "checked": false,
+      "isPrivate": false,
+      "iconHint": "soda"
+    },
+    {
+      "barcode": "4600702099771",
+      "name": "Sprite 0.5 л",
+      "category": "Напитки",
+      "checked": false,
+      "isPrivate": false,
+      "iconHint": "soda"
+    },
+    {
+      "barcode": "4607025392598",
+      "name": "Сок Rich яблоко 1 л",
+      "category": "Соки и Нектары",
+      "checked": false,
+      "isPrivate": false,
+      "iconHint": "juice"
+    },
+    {
+      "barcode": "4810173010010",
+      "name": "Молоко 3.2% 1 л",
+      "category": "Молочка",
+      "checked": false,
+      "isPrivate": false,
+      "iconHint": "milk"
+    },
+    {
+      "barcode": "4810173099999",
+      "name": "Товар без позиции (demo)",
+      "category": "Прочее",
+      "checked": false,
+      "isPrivate": false,
+      "iconHint": "inventory"
+    }
+  ],
+  "productLocations": [
+    {
+      "barcode": "4810014020903",
+      "storeId": "gippo-momo-demo",
+      "rackId": "R-KVAS-01",
+      "zoneCode": "WJ",
+      "shelf": 2,
+      "posX": 6.2,
+      "posY": 4.1,
+      "posZ": 1.05
+    },
+    {
+      "barcode": "4810285008419",
+      "storeId": "gippo-momo-demo",
+      "rackId": "R-KVAS-01",
+      "zoneCode": "WJ",
+      "shelf": 3,
+      "posX": 6.5,
+      "posY": 4.1,
+      "posZ": 1.45
+    },
+    {
+      "barcode": "4810014018641",
+      "storeId": "gippo-momo-demo",
+      "rackId": "R-KVAS-01",
+      "zoneCode": "WJ",
+      "shelf": 1,
+      "posX": 5.9,
+      "posY": 4.1,
+      "posZ": 0.55
+    },
+    {
+      "barcode": "4810014018658",
+      "storeId": "gippo-momo-demo",
+      "rackId": "R-KVAS-02",
+      "zoneCode": "WJ",
+      "shelf": 2,
+      "posX": 9.0,
+      "posY": 4.1,
+      "posZ": 1.05
+    },
+    {
+      "barcode": "4810268030123",
+      "storeId": "gippo-momo-demo",
+      "rackId": "R-WATER-01",
+      "zoneCode": "WE",
+      "shelf": 2,
+      "posX": 4.0,
+      "posY": 10.0,
+      "posZ": 1.0
+    },
+    {
+      "barcode": "4810268030451",
+      "storeId": "gippo-momo-demo",
+      "rackId": "R-WATER-01",
+      "zoneCode": "WE",
+      "shelf": 3,
+      "posX": 4.3,
+      "posY": 10.0,
+      "posZ": 1.4
+    },
+    {
+      "barcode": "4600702099888",
+      "storeId": "gippo-momo-demo",
+      "rackId": "C-COLA-01",
+      "zoneCode": "WE",
+      "shelf": 2,
+      "posX": 14.0,
+      "posY": 8.5,
+      "posZ": 1.0
+    },
+    {
+      "barcode": "4600702099771",
+      "storeId": "gippo-momo-demo",
+      "rackId": "C-COLA-01",
+      "zoneCode": "WE",
+      "shelf": 3,
+      "posX": 14.3,
+      "posY": 8.5,
+      "posZ": 1.4
+    },
+    {
+      "barcode": "4607025392598",
+      "storeId": "gippo-momo-demo",
+      "rackId": "R-JUICE-01",
+      "zoneCode": "WJ",
+      "shelf": 2,
+      "posX": 11.5,
+      "posY": 12.0,
+      "posZ": 1.1
+    },
+    {
+      "barcode": "4810173010010",
+      "storeId": "gippo-momo-demo",
+      "rackId": "R-MILK-01",
+      "zoneCode": "ML",
+      "shelf": 1,
+      "posX": 18.0,
+      "posY": 6.0,
+      "posZ": 0.6
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "storeId": "gippo-momo-demo",
+      "title": "Проверить выкладку кваса Лидский 1 л",
+      "barcode": "4810285008419",
+      "status": "open",
+      "dueAt": "2026-11-17T12:00:00",
+      "priority": 1
+    },
+    {
+      "id": "task-2",
+      "storeId": "gippo-momo-demo",
+      "title": "Дополнить воду Минская 1.5 л",
+      "barcode": "4810268030123",
+      "status": "open",
+      "dueAt": "2026-11-17T15:00:00",
+      "priority": 2
+    },
+    {
+      "id": "task-3",
+      "storeId": "gippo-momo-demo",
+      "title": "Снять просроченный Sprite (demo done)",
+      "barcode": "4600702099771",
+      "status": "done",
+      "dueAt": "2026-11-16T18:00:00",
+      "priority": 3
+    },
+    {
+      "id": "task-4",
+      "storeId": "gippo-momo-demo",
+      "title": "Просроченная проверка Coca-Cola",
+      "barcode": "4600702099888",
+      "status": "open",
+      "dueAt": "2026-11-15T10:00:00",
+      "priority": 1
+    }
+  ],
+  "storeMap": {
+    "layout": {
+      "widthMeters": 24,
+      "heightMeters": 16,
+      "gridSizeCm": 50,
+      "origin": "sw"
+    },
+    "zones": [
+      {
+        "code": "WE",
+        "name": "Вода и Колы",
+        "color": "#2EC4B6"
+      },
+      {
+        "code": "WJ",
+        "name": "Соки и Нектары",
+        "color": "#7B6CF0"
+      },
+      {
+        "code": "ML",
+        "name": "Молочка",
+        "color": "#F0A04B"
+      }
+    ],
+    "zoneDictionary": {
+      "WE": "Вода и Колы",
+      "WJ": "Соки и Нектары",
+      "ML": "Молочка"
+    },
+    "zoneColors": {
+      "WE": "#2EC4B6",
+      "WJ": "#7B6CF0",
+      "ML": "#F0A04B"
+    },
+    "walls": [
+      {
+        "startX": 0,
+        "startY": 0,
+        "endX": 24,
+        "endY": 0,
+        "wallType": "wall"
+      },
+      {
+        "startX": 24,
+        "startY": 0,
+        "endX": 24,
+        "endY": 16,
+        "wallType": "wall"
+      },
+      {
+        "startX": 24,
+        "startY": 16,
+        "endX": 0,
+        "endY": 16,
+        "wallType": "wall"
+      },
+      {
+        "startX": 0,
+        "startY": 16,
+        "endX": 0,
+        "endY": 0,
+        "wallType": "wall"
+      },
+      {
+        "startX": 0,
+        "startY": 1.5,
+        "endX": 0,
+        "endY": 3.5,
+        "wallType": "door"
+      }
+    ],
+    "racks": [
+      {
+        "id": "R-KVAS-01",
+        "equipmentType": "rack",
+        "posX": 5.5,
+        "posY": 3.5,
+        "widthMeters": 2.4,
+        "lengthMeters": 0.8,
+        "heightMeters": 1.8,
+        "rotation": 0,
+        "shelfCount": 5,
+        "zoneColor": "#7B6CF0",
+        "zoneCode": "WJ"
+      },
+      {
+        "id": "R-KVAS-02",
+        "equipmentType": "rack",
+        "posX": 8.5,
+        "posY": 3.5,
+        "widthMeters": 2.4,
+        "lengthMeters": 0.8,
+        "heightMeters": 1.8,
+        "rotation": 0,
+        "shelfCount": 5,
+        "zoneColor": "#7B6CF0",
+        "zoneCode": "WJ"
+      },
+      {
+        "id": "R-WATER-01",
+        "equipmentType": "rack",
+        "posX": 3.2,
+        "posY": 9.4,
+        "widthMeters": 2.4,
+        "lengthMeters": 0.8,
+        "heightMeters": 1.8,
+        "rotation": 0,
+        "shelfCount": 5,
+        "zoneColor": "#2EC4B6",
+        "zoneCode": "WE"
+      },
+      {
+        "id": "R-JUICE-01",
+        "equipmentType": "rack",
+        "posX": 10.8,
+        "posY": 11.4,
+        "widthMeters": 2.0,
+        "lengthMeters": 0.7,
+        "heightMeters": 1.8,
+        "rotation": 90,
+        "shelfCount": 5,
+        "zoneColor": "#7B6CF0",
+        "zoneCode": "WJ"
+      },
+      {
+        "id": "R-MILK-01",
+        "equipmentType": "rack",
+        "posX": 17.2,
+        "posY": 5.4,
+        "widthMeters": 2.4,
+        "lengthMeters": 0.8,
+        "heightMeters": 1.8,
+        "rotation": 0,
+        "shelfCount": 5,
+        "zoneColor": "#F0A04B",
+        "zoneCode": "ML"
+      }
+    ],
+    "coolers": [
+      {
+        "id": "C-COLA-01",
+        "equipmentType": "cooler",
+        "posX": 13.5,
+        "posY": 8.0,
+        "widthMeters": 1.6,
+        "lengthMeters": 0.9,
+        "heightMeters": 2.0,
+        "rotation": 0,
+        "shelfCount": 5,
+        "zoneColor": "#2EC4B6",
+        "zoneCode": "WE"
+      }
+    ],
+    "stands": [
+      {
+        "id": "S-PROMO-01",
+        "equipmentType": "stand",
+        "posX": 2.0,
+        "posY": 2.0,
+        "widthMeters": 1.0,
+        "lengthMeters": 1.0,
+        "heightMeters": 1.2,
+        "rotation": 0,
+        "shelfCount": 2,
+        "zoneColor": "#CCCCCC"
+      }
+    ],
+    "markers": [
+      {
+        "id": "E-MAIN",
+        "type": "entrance",
+        "posX": 1.0,
+        "posY": 2.5,
+        "widthMeters": 0.6,
+        "depthMeters": 0.6,
+        "rotation": 0,
+        "color": "#33AA55"
+      },
+      {
+        "id": "CASH-01",
+        "type": "cash_register",
+        "posX": 20.0,
+        "posY": 2.0,
+        "widthMeters": 1.0,
+        "depthMeters": 0.8,
+        "rotation": 0,
+        "color": "#F0A04B"
+      }
+    ]
+  }
+}

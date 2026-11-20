@@ -1,0 +1,4 @@
+{
+  "cloudUrl": "",
+  "note": "Укажите HTTPS URL полного JSON-бандла каталога. Пусто = пакетный plna_cloud_bundle.json."
+}

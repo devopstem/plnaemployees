@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Smart Planogram</string>
+    <string name="app_subtitle">Mobile client</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_departments">Departments</string>
+    <string name="nav_scanner">Scanner</string>
+    <string name="nav_map">Map</string>
+    <string name="nav_tasks">Tasks</string>
+    <string name="nav_profile">Profile</string>
+    <string name="action_back">Back</string>
+
+    <string name="home_departments_sub">Racks and shelves</string>
+    <string name="departments_hint">Pick a department — scroll shelves down, swipe racks sideways</string>
+    <string name="home_recent_racks">Recently opened racks</string>
+    <string name="home_recent_racks_empty">Empty — open a rack from a department</string>
+    <string name="home_favorites">Quick access</string>
+    <string name="departments_empty">No departments found</string>
+    <string name="departments_racks_count">Racks: %1$d</string>
+    <string name="departments_racks_empty">No racks found</string>
+    <string name="departments_planogram_title">Department planogram</string>
+    <string name="departments_rack_page">Rack %1$s · %2$d of %3$d</string>
+    <string name="departments_shelves_count">Shelves: %1$d</string>
+    <string name="planogram_product_here">Product is here</string>
+    <string name="dept_wj">Beverages (WJ)</string>
+    <string name="dept_we">Water &amp; coolers (WE)</string>
+    <string name="dept_ml">Dairy (ML)</string>
+    <string name="dept_gen">General</string>
+
+    <string name="search_place_filter">Place</string>
+    <string name="search_dept_filter">Department</string>
+    <string name="search_place_rack">Rack</string>
+    <string name="search_place_cooler">Cooler</string>
+    <string name="search_place_stand">Stand</string>
+
+    <string name="profile_guest">Guest</string>
+    <string name="profile_logged_out">Signed out</string>
+    <string name="profile_logout">Sign out</string>
+    <string name="profile_login">Sign in</string>
+
+    <string name="tasks_shift">Shift: 08:00 – 16:00</string>
+    <string name="tasks_done_action">Done</string>
+    <string name="tasks_title">Tasks</string>
+    <string name="tasks_today">Today</string>
+    <string name="tasks_overdue">Overdue</string>
+    <string name="tasks_done">Completed</string>
+    <string name="tasks_empty">No tasks</string>
+    <string name="tasks_empty_hint">Try another filter</string>
+
+    <string name="scanner_torch">Flashlight</string>
+    <string name="scanner_permission">Camera access required</string>
+    <string name="scanner_grant">Allow</string>
+    <string name="scanner_demo">Demo scan</string>
+    <string name="scanner_show_route">Show route</string>
+    <string name="scanner_shelf">Shelf %1$d</string>
+    <string name="scanner_rack">Rack %1$s</string>
+
+    <string name="map_from_entrance">From entrance</string>
+    <string name="map_to_checkout">To checkout</string>
+    <string name="map_compass">Compass</string>
+    <string name="map_compass_auto">Auto</string>
+    <string name="map_empty_title">Store map not loaded</string>
+    <string name="map_empty_hint">Open Home and wait for sync</string>
+    <string name="map_mode_2d">2D</string>
+    <string name="map_mode_3d">3D</string>
+    <string name="map_mode_2d_hint">Flat plan</string>
+    <string name="map_mode_3d_hint">3D racks</string>
+    <string name="map_card_title">Floor map</string>
+    <string name="map_gestures">Gestures: pinch / drag</string>
+
+    <string name="home_greeting">Hi, User</string>
+    <string name="home_greeting_named">Hi, %1$s</string>
+    <string name="home_store_none">Store not selected</string>
+    <string name="home_scan">Scan</string>
+    <string name="home_scan_sub">Product barcode</string>
+    <string name="home_search">Search</string>
+    <string name="home_search_sub">Catalog</string>
+    <string name="home_tasks_today">Tasks today</string>
+    <string name="home_tasks_empty">No tasks for today</string>
+
+    <string name="search_title">Search</string>
+    <string name="search_hint">Name or barcode</string>
+    <string name="search_empty">Nothing found in offline catalog</string>
+    <string name="search_chip_all">All</string>
+    <string name="search_found">Found: %1$d</string>
+    <string name="search_no_location">Map position not set</string>
+
+    <string name="profile_role">Merchandiser</string>
+    <string name="profile_online">Online</string>
+    <string name="profile_section_account">Account</string>
+    <string name="profile_section_prefs">Preferences</string>
+    <string name="profile_section_support">Support</string>
+    <string name="profile_manage">Manage profile</string>
+    <string name="profile_security">Password &amp; security</string>
+    <string name="profile_security_body">Sign-in uses your corporate account. Ask the store admin to change the password.</string>
+    <string name="profile_notifications">Notifications</string>
+    <string name="profile_notif_tasks">Task notifications</string>
+    <string name="profile_notif_map">Route notifications</string>
+    <string name="profile_language">Language</string>
+    <string name="profile_theme">Theme</string>
+    <string name="profile_about">About us</string>
+    <string name="profile_shift">Shift</string>
+    <string name="profile_shift_body">Current shift: 08:00 – 16:00. Schedule is managed by the store system.</string>
+    <string name="profile_help">Help center</string>
+    <string name="profile_help_body">Scan a product, open the map, and follow the route to the rack. Search works offline.</string>
+    <string name="profile_about_body">Smart Planogram · version 1.1.0\n\nMobile client for merchandisers: departments and racks, vertical shelf planogram, search and barcode scanner, offline catalog (Room) with sync when online, onboarding, dark theme.\n\nFor: merchandisers and store floor staff.</string>
+    <string name="profile_field_name">Name</string>
+    <string name="profile_field_role">Role</string>
+    <string name="profile_field_store">Store</string>
+    <string name="profile_field_uid">ID</string>
+
+    <string name="lang_ru">Русский</string>
+    <string name="lang_be">Беларуская</string>
+    <string name="lang_en">English</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System</string>
+
+    <string name="scanner_title">Scanner</string>
+    <string name="scanner_hint">Point the camera at a barcode — we open the shelf</string>
+    <string name="scanner_not_found">Product not found in the offline catalog</string>
+    <string name="home_scan_open">Scan barcode</string>
+
+    <string name="product_detail_title">Product on shelf</string>
+    <string name="product_detail_barcode">Barcode</string>
+    <string name="product_detail_category">Category</string>
+    <string name="product_detail_rack">Rack</string>
+    <string name="product_detail_shelf">Shelf</string>
+
+    <string name="sync_offline">Offline · data from local database</string>
+    <string name="sync_checking">Checking for updates…</string>
+    <string name="sync_uptodate">Catalog is up to date</string>
+    <string name="sync_updated">Catalog updated</string>
+    <string name="sync_retry">Refresh</string>
+    <string name="sync_status">Sync</string>
+    <string name="sync_updated_at">Updated: %1$s</string>
+    <string name="sync_never">Not synced yet</string>
+
+    <string name="onboarding_welcome">Welcome</string>
+    <string name="onboarding_depts_title">Departments</string>
+    <string name="onboarding_depts_body">Open a department to see store racks.</string>
+    <string name="onboarding_shelves_title">Rack shelves</string>
+    <string name="onboarding_shelves_body">Scroll shelves like a real rack. Tap a product for details.</string>
+    <string name="onboarding_search_title">Search &amp; scan</string>
+    <string name="onboarding_search_body">Search by name or scan a barcode — we jump to the right shelf.</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_start">Get started</string>
+
+    <string name="splash_loading">Loading catalog…</string>
+</resources>

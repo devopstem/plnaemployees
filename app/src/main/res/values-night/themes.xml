@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.SmartPlanogram" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/sp_purple</item>
+        <item name="colorPrimaryVariant">@color/sp_bg_elevated</item>
+        <item name="colorOnPrimary">@color/sp_text</item>
+        <item name="colorSecondary">@color/sp_cyan</item>
+        <item name="colorSecondaryVariant">@color/sp_cyan</item>
+        <item name="colorOnSecondary">@color/sp_bg</item>
+        <item name="android:colorBackground">@color/sp_bg</item>
+        <item name="colorSurface">@color/sp_surface</item>
+        <item name="colorOnSurface">@color/sp_text</item>
+        <item name="android:statusBarColor">@color/sp_bg</item>
+        <item name="android:navigationBarColor">@color/sp_bg_elevated</item>
+        <item name="android:windowBackground">@color/sp_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
