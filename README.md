@@ -108,6 +108,14 @@ app/src/main/
 
 ---
 
+## CI/CD
+
+GitHub Actions (Detekt · unit tests · assemble · **SonarCloud quality gate**) + CodeQL + Dependabot.
+
+Полная инструкция: [docs/CI_CD.md](docs/CI_CD.md).
+
+Нужный secret: `SONAR_TOKEN`. Опционально vars: `SONAR_PROJECT_KEY`, `SONAR_ORGANIZATION`.
+
 ## Changelog
 
 См. [CHANGELOG.md](CHANGELOG.md).

@@ -1,0 +1,98 @@
+# Smart Planogram — Detekt profile (middle+)
+# High-signal rules first. Formatting (ktlint) off until cleanup PR.
+# Ratchet: keep maxIssues at 0; put legacy noise into baseline.xml via detektBaseline.
+
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+
+config:
+  validation: true
+  warningsAsErrors: true
+
+complexity:
+  LongMethod:
+    threshold: 90
+    ignoreAnnotated: ['Composable', 'Preview']
+  LongParameterList:
+    functionThreshold: 10
+    constructorThreshold: 12
+    ignoreDefaultParameters: true
+    ignoreAnnotated: ['Composable']
+  ComplexCondition:
+    threshold: 6
+  NestedBlockDepth:
+    threshold: 6
+  CyclomaticComplexMethod:
+    threshold: 20
+    ignoreSingleWhenExpression: true
+    ignoreAnnotated: ['Composable']
+  TooManyFunctions:
+    active: false
+
+coroutines:
+  GlobalCoroutineUsage:
+    active: true
+  RedundantSuspendModifier:
+    active: true
+  SleepInsteadOfDelay:
+    active: true
+
+empty-blocks:
+  EmptyCatchBlock:
+    active: true
+  EmptyFunctionBlock:
+    ignoreOverridden: true
+
+exceptions:
+  SwallowedException:
+    active: true
+    ignoredExceptionTypes:
+      - 'InterruptedException'
+      - 'NumberFormatException'
+      - 'ParseException'
+      - 'CancellationException'
+  TooGenericExceptionThrown:
+    active: true
+  TooGenericExceptionCaught:
+    active: false
+
+naming:
+  FunctionNaming:
+    active: true
+    ignoreAnnotated: ['Composable', 'Test', 'Preview']
+    functionPattern: '[a-z][a-zA-Z0-9]*'
+
+potential-bugs:
+  EqualsAlwaysReturnsTrueOrFalse:
+    active: true
+  UnreachableCode:
+    active: true
+  UnusedUnaryOperator:
+    active: true
+  UnsafeCallOnNullableType:
+    active: false
+
+style:
+  MaxLineLength:
+    active: true
+    maxLineLength: 140
+    excludeCommentStatements: true
+  UnusedImports:
+    active: true
+  WildcardImport:
+    active: true
+  ForbiddenComment:
+    active: true
+    comments: ['FIXME:', 'STOPSHIP:']
+  MagicNumber:
+    active: false
+  ReturnCount:
+    active: true
+    max: 5
+    excludeGuardClauses: true
+  UnnecessaryApply:
+    active: true
+
+formatting:
+  active: false

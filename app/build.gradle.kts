@@ -10,6 +10,9 @@ android {
         version = release(37)
     }
 
+    // Keep in sync with .github/workflows (sdkmanager ndk install)
+    ndkVersion = "27.0.12077973"
+
     defaultConfig {
         applicationId = "by.smartplanogram.spmob"
         minSdk = 24
@@ -44,6 +47,11 @@ android {
     buildFeatures {
         compose = true
     }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = false
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -70,4 +78,6 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.mlkit.barcode.scanning)
     ksp(libs.androidx.room.compiler)
+
+    testImplementation(libs.junit)
 }

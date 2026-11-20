@@ -6,6 +6,7 @@
 ## [1.1.0] — 2026-11-20
 
 ### Added
+- CI/CD (GitHub Actions): Detekt, unit tests, assembleDebug, SonarCloud quality gate, CodeQL, Dependabot
 - Вертикальная планограмма (edge-to-edge полки, sticky header, fade, scroll indicator)
 - Сканер штрихкода (CameraX + ML Kit) и демо-скан
 - Детали товара по тапу на полке (bottom sheet)

@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<!--
+  Baseline for legacy smells. Regenerate after intentional cleanups:
+    ./gradlew detektBaseline
+  New issues MUST be fixed (maxIssues: 0) — middle+ gate.
+-->
+<SmellBaseline>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues/>
+</SmellBaseline>

@@ -1,0 +1,4 @@
+# Default owners — adjust GitHub usernames after publish
+*       @devopstem
+/.github/ @devopstem
+/docs/    @devopstem

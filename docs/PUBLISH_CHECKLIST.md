@@ -1,12 +1,15 @@
 # Чеклист перед публикацией на GitHub
 
 - [x] Версия приложения **1.1.0** / versionCode **2**
-- [x] README.md, CHANGELOG.md, docs/ARCHITECTURE.md
+- [x] README.md, CHANGELOG.md, docs/ARCHITECTURE.md, docs/CI_CD.md
 - [x] Строка «О приложении» обновлена до 1.1.0
 - [x] `.gitignore` исключает `local.properties`, `build/`, `.idea/`
+- [x] CI: Detekt + unit tests + assemble + SonarCloud + CodeQL + Dependabot
 - [ ] `git submodule` доступен по URL в `.gitmodules`
-- [ ] Initial commit / tag `v1.1.0`
-- [ ] Remote GitHub создан, `git push -u origin main`
+- [ ] Push `main` + tag `v1.1.0`
+- [ ] GitHub Secret **`SONAR_TOKEN`**
+- [ ] SonarCloud: import repo, Quality Gate, disable Automatic Analysis
+- [ ] Branch protection: require CI + SonarCloud + CodeQL
 - [ ] (Опционально) GitHub Release с заметками из CHANGELOG
 - [ ] Не коммитить: `local.properties`, keystore, токены
 
