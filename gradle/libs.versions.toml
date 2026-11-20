@@ -3,7 +3,7 @@ agp = "9.4.1"
 # AGP 9 already ships Kotlin — do not apply org.jetbrains.kotlin.android again.
 # Compose compiler plugin version must match the Kotlin toolchain.
 kotlin = "2.1.10"
-ksp = "2.1.10-1.0.31"
+ksp = "2.3.14"
 coreKtx = "1.19.1"
 appcompat = "1.8.0"
 annotation = "1.9.1"
