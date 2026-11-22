@@ -1,26 +1,22 @@
-# Чеклист перед публикацией на GitHub
+# Publish checklist — Smart Planogram 1.2.0
 
-- [x] Версия приложения **1.1.0** / versionCode **2**
-- [x] README.md, CHANGELOG.md, docs/ARCHITECTURE.md, docs/CI_CD.md
-- [x] Строка «О приложении» обновлена до 1.1.0
-- [x] `.gitignore` исключает `local.properties`, `build/`, `.idea/`
-- [x] CI: Detekt + unit tests + assemble + SonarCloud + CodeQL + Dependabot
-- [ ] `git submodule` доступен по URL в `.gitmodules`
-- [ ] Push `main` + tag `v1.1.0`
-- [ ] GitHub Secret **`SONAR_TOKEN`**
-- [ ] SonarCloud: import repo, Quality Gate, disable Automatic Analysis
-- [ ] Branch protection: require CI + SonarCloud + CodeQL
-- [ ] (Опционально) GitHub Release с заметками из CHANGELOG
-- [ ] Не коммитить: `local.properties`, keystore, токены
+Author: **devopstem**
 
-## Команды
+- [x] Version **1.2.0** / versionCode **3**
+- [x] README.md, CHANGELOG.md обновлены
+- [x] «О приложении» → 1.2.0 + автор devopstem
+- [x] Firebase Auth + RTDB sync + biometric + local login
+- [x] Поиск: полный каталог, ellipsis названий, иконки
+- [x] Сканер: повторное сканирование
+- [ ] `./gradlew :app:assembleDebug` / `assembleRelease` зелёный
+- [ ] Push `main` + tag `v1.2.0`
+- [ ] GitHub Release из CHANGELOG `1.2.0`
 
 ```bash
-git submodule update --init --recursive
+./gradlew :app:assembleDebug
 git add -A
-git status   # проверить, что local.properties нет в staging
-git commit -m "Release 1.1.0: planogram, scanner, sync, docs"
-git tag -a v1.1.0 -m "Smart Planogram 1.1.0"
-git remote add origin git@github.com:<user>/<repo>.git   # если ещё нет
-git push -u origin main --tags
+git commit -m "Release 1.2.0: Firebase auth, biometrics, catalog sync, scanner & icons"
+git tag -a v1.2.0 -m "Smart Planogram 1.2.0 by devopstem"
+git push origin HEAD
+git push origin v1.2.0
 ```

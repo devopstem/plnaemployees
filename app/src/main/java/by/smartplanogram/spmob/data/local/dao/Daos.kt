@@ -56,8 +56,34 @@ interface ProductDao {
         category: String,
         zoneCode: String = "",
         placeType: String = "",
-        limit: Int = 50,
+        limit: Int = 10_000,
     ): List<ProductSearchRow>
+
+    @Query(
+        """
+        SELECT COUNT(*)
+        FROM products p
+        LEFT JOIN product_locations l
+          ON l.barcode = p.barcode AND l.storeId = :storeId
+        WHERE (:query = '' OR p.name LIKE '%' || :query || '%' OR p.barcode LIKE '%' || :query || '%')
+          AND (:category = '' OR p.category = :category)
+          AND (:zoneCode = '' OR l.zoneCode = :zoneCode)
+          AND (
+            :placeType = ''
+            OR EXISTS (
+              SELECT 1 FROM racks r
+              WHERE r.id = l.rackId AND r.storeId = :storeId AND r.equipmentType = :placeType
+            )
+          )
+        """,
+    )
+    suspend fun searchCount(
+        storeId: String,
+        query: String,
+        category: String,
+        zoneCode: String = "",
+        placeType: String = "",
+    ): Int
 
     @Query(
         """
@@ -166,6 +192,9 @@ interface UserDao {
 
     @Query("SELECT * FROM user_profile LIMIT 1")
     suspend fun current(): UserProfileEntity?
+
+    @Query("DELETE FROM user_profile")
+    suspend fun clear()
 }
 
 @Dao

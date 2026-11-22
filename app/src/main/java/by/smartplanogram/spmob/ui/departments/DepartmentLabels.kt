@@ -11,17 +11,24 @@ import androidx.compose.ui.res.stringResource
 import by.smartplanogram.spmob.R
 
 @Composable
-fun departmentTitle(departmentId: String): String = when (departmentId.uppercase()) {
-    "WJ" -> stringResource(R.string.dept_wj)
-    "WE" -> stringResource(R.string.dept_we)
-    "ML" -> stringResource(R.string.dept_ml)
-    "GEN" -> stringResource(R.string.dept_gen)
-    else -> departmentId
+fun departmentTitle(departmentId: String, displayName: String = ""): String {
+    if (displayName.isNotBlank()) return displayName
+    return when (departmentId.uppercase()) {
+        "WJ" -> stringResource(R.string.dept_wj)
+        "WE" -> stringResource(R.string.dept_we)
+        "ML" -> stringResource(R.string.dept_ml)
+        "GEN" -> stringResource(R.string.dept_gen)
+        "WR" -> "Вода"
+        "CED" -> "Газированные напитки"
+        "DAIRY" -> "Молочная продукция"
+        "PDC" -> "Овощи и Фрукты"
+        else -> departmentId
+    }
 }
 
 fun departmentIcon(departmentId: String): ImageVector = when (departmentId.uppercase()) {
-    "WJ" -> Icons.Outlined.LocalDrink
-    "WE" -> Icons.Outlined.WaterDrop
-    "ML" -> Icons.Outlined.AcUnit
+    "WJ", "CED", "JES", "KSS" -> Icons.Outlined.LocalDrink
+    "WE", "WR" -> Icons.Outlined.WaterDrop
+    "ML", "DAIRY", "IAM" -> Icons.Outlined.AcUnit
     else -> Icons.Outlined.Category
 }

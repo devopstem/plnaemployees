@@ -46,9 +46,6 @@ class AppSettings(context: Context) {
     private val _mapNotifications = MutableStateFlow(prefs.getBoolean(KEY_NOTIF_MAP, true))
     val mapNotifications: StateFlow<Boolean> = _mapNotifications.asStateFlow()
 
-    private val _loggedIn = MutableStateFlow(prefs.getBoolean(KEY_LOGGED_IN, true))
-    val loggedIn: StateFlow<Boolean> = _loggedIn.asStateFlow()
-
     private val _recentRacks = MutableStateFlow(readRecentRacks())
     val recentRacks: StateFlow<List<RecentRack>> = _recentRacks.asStateFlow()
 
@@ -58,9 +55,17 @@ class AppSettings(context: Context) {
     private val _lastSyncAt = MutableStateFlow(prefs.getLong(KEY_LAST_SYNC, 0L))
     val lastSyncAt: StateFlow<Long> = _lastSyncAt.asStateFlow()
 
+    private val _biometricEnabled = MutableStateFlow(prefs.getBoolean(KEY_BIOMETRIC, false))
+    val biometricEnabled: StateFlow<Boolean> = _biometricEnabled.asStateFlow()
+
     init {
         applyTheme(_themeMode.value)
         applyLanguage(_language.value)
+    }
+
+    fun setBiometricEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean(KEY_BIOMETRIC, enabled).apply()
+        _biometricEnabled.value = enabled
     }
 
     fun setOnboardingDone(done: Boolean) {
@@ -79,16 +84,6 @@ class AppSettings(context: Context) {
             .take(6)
         prefs.edit().putString(KEY_RECENT_RACKS, encodeRecent(next)).apply()
         _recentRacks.value = next
-    }
-
-    fun logout() {
-        prefs.edit().putBoolean(KEY_LOGGED_IN, false).apply()
-        _loggedIn.value = false
-    }
-
-    fun login() {
-        prefs.edit().putBoolean(KEY_LOGGED_IN, true).apply()
-        _loggedIn.value = true
     }
 
     fun setThemeMode(mode: AppThemeMode) {
@@ -139,10 +134,10 @@ class AppSettings(context: Context) {
         private const val KEY_LANG = "language"
         private const val KEY_NOTIF_TASKS = "notif_tasks"
         private const val KEY_NOTIF_MAP = "notif_map"
-        private const val KEY_LOGGED_IN = "logged_in"
         private const val KEY_RECENT_RACKS = "recent_racks"
         private const val KEY_ONBOARDING = "onboarding_done"
         private const val KEY_LAST_SYNC = "last_sync_at"
+        private const val KEY_BIOMETRIC = "biometric_unlock"
 
         fun applyTheme(mode: AppThemeMode) {
             val night = when (mode) {

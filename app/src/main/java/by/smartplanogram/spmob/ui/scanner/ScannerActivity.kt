@@ -15,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
@@ -24,13 +25,14 @@ import by.smartplanogram.spmob.R
 import by.smartplanogram.spmob.SpmobApp
 import by.smartplanogram.spmob.ui.rack.RackCarouselActivity
 import by.smartplanogram.spmob.ui.theme.SpTheme
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.Dispatchers
 
 class ScannerActivity : AppCompatActivity() {
 
     private var cameraGranted by mutableStateOf(false)
+    private var scanEpoch by mutableIntStateOf(0)
 
     private val permissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -62,15 +64,24 @@ class ScannerActivity : AppCompatActivity() {
                     },
                     onBarcode = ::onBarcode,
                     onClose = { finish() },
-                    onDemoScan = { onBarcode(DEMO_BARCODE) },
+                    scanEpoch = scanEpoch,
                 )
             }
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Re-arm after returning from planogram / system dialogs
+        scanEpoch += 1
+    }
+
     private fun onBarcode(raw: String) {
         val barcode = raw.trim()
-        if (barcode.isEmpty()) return
+        if (barcode.isEmpty()) {
+            scanEpoch += 1
+            return
+        }
         lifecycleScope.launch {
             val row = withContext(Dispatchers.IO) {
                 SpmobApp.instance.catalog.byBarcode(barcode)
@@ -78,6 +89,7 @@ class ScannerActivity : AppCompatActivity() {
             if (row == null) {
                 Toast.makeText(this@ScannerActivity, R.string.scanner_not_found, Toast.LENGTH_SHORT)
                     .show()
+                scanEpoch += 1
                 return@launch
             }
             if (!row.hasLocation || row.rackId.isNullOrBlank()) {
@@ -86,16 +98,24 @@ class ScannerActivity : AppCompatActivity() {
                     R.string.search_no_location,
                     Toast.LENGTH_SHORT,
                 ).show()
+                scanEpoch += 1
                 return@launch
             }
             val departmentId = withContext(Dispatchers.IO) {
                 row.zoneCode?.takeIf { it.isNotBlank() }
                     ?: SpmobApp.instance.db.racks().byId(row.rackId)?.departmentId
-            } ?: return@launch
+            }
+            if (departmentId == null) {
+                Toast.makeText(this@ScannerActivity, R.string.search_no_location, Toast.LENGTH_SHORT)
+                    .show()
+                scanEpoch += 1
+                return@launch
+            }
             val storeId = withContext(Dispatchers.IO) {
                 SpmobApp.instance.catalog.currentStore()?.id
             }
             pulseHaptic()
+            // Keep scanner alive — user can come back and scan again without reopening.
             startActivity(
                 RackCarouselActivity.intent(
                     context = this@ScannerActivity,
@@ -106,7 +126,6 @@ class ScannerActivity : AppCompatActivity() {
                     productName = row.product.name,
                 ),
             )
-            finish()
         }
     }
 
@@ -130,8 +149,6 @@ class ScannerActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val DEMO_BARCODE = "4810014020903"
-
         fun intent(context: Context): Intent =
             Intent(context, ScannerActivity::class.java)
     }

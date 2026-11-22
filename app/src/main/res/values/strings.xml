@@ -40,6 +40,25 @@
     <string name="profile_logout">Выйти из системы</string>
     <string name="profile_login">Войти</string>
 
+    <string name="login_subtitle">Вход для сотрудников магазина</string>
+    <string name="login_field_login">Логин</string>
+    <string name="login_field_password">Пароль</string>
+    <string name="login_action">Войти</string>
+    <string name="login_hint">Вход работает и без облака (встроенный доступ). При сети каталог подтянется из Firebase в Room.</string>
+    <string name="login_enable_biometric">Открывать по отпечатку / Face ID</string>
+
+    <string name="biometric_gate_title">Разблокировка</string>
+    <string name="biometric_gate_body">Подтвердите личность отпечатком или лицом</string>
+    <string name="biometric_unlock_action">Разблокировать</string>
+    <string name="biometric_use_password">Войти по паролю</string>
+    <string name="biometric_retry">Повторить</string>
+    <string name="biometric_prompt_title">Smart Planogram</string>
+    <string name="biometric_prompt_subtitle">Отпечаток или Face ID</string>
+    <string name="biometric_prompt_cancel">Отмена</string>
+    <string name="biometric_enable_confirm">Подтвердите, чтобы включить быстрый вход</string>
+    <string name="biometric_unavailable">Биометрия недоступна на этом устройстве</string>
+    <string name="profile_biometric">Вход по биометрии</string>
+
     <string name="tasks_shift">Смена: 08:00 – 16:00</string>
     <string name="tasks_done_action">Выполнено</string>
 
@@ -75,6 +94,7 @@
     <string name="search_empty">Ничего не найдено в офлайн-каталоге</string>
     <string name="search_chip_all">Все</string>
     <string name="search_found">Найдено: %1$d</string>
+    <string name="search_found_of_catalog">Найдено: %1$d · в каталоге %2$d</string>
     <string name="search_no_location">Позиция на карте не задана</string>
 
     <string name="tasks_title">Задачи</string>
@@ -132,7 +152,7 @@
     <string name="profile_shift_body">Текущая смена: 08:00 – 16:00. Расписание задаётся в системе магазина.</string>
     <string name="profile_help">Справка</string>
     <string name="profile_help_body">Сканируйте товар, откройте карту и следуйте маршруту до стеллажа. Поиск работает офлайн.</string>
-    <string name="profile_about_body">Smart Planogram · версия 1.1.0\n\nМобильный клиент для мерчандайзеров: отделы и стеллажи, вертикальная планограмма полок, поиск и сканер штрихкода, офлайн-каталог (Room) с синхронизацией при наличии сети, онбординг, тёмная тема.\n\nДля кого: мерчандайзеры и персонал торгового зала.</string>
+    <string name="profile_about_body">Smart Planogram · версия 1.2.0\nАвтор: devopstem\n\nМобильный клиент для мерчандайзеров: Firebase Auth + RTDB → Room, биометрия, отделы и стеллажи, планограмма, поиск и сканер штрихкода, офлайн-каталог, онбординг, тёмная тема.\n\nДля кого: мерчандайзеры и персонал торгового зала.</string>
     <string name="profile_field_name">Имя</string>
     <string name="profile_field_role">Роль</string>
     <string name="profile_field_store">Магазин</string>

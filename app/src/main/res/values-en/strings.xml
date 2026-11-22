@@ -40,6 +40,25 @@
     <string name="profile_logout">Sign out</string>
     <string name="profile_login">Sign in</string>
 
+    <string name="login_subtitle">Store staff sign-in</string>
+    <string name="login_field_login">Login</string>
+    <string name="login_field_password">Password</string>
+    <string name="login_action">Sign in</string>
+    <string name="login_hint">Works offline with built-in access. When online, the catalog syncs from Firebase into Room.</string>
+    <string name="login_enable_biometric">Unlock with fingerprint / Face ID</string>
+
+    <string name="biometric_gate_title">Unlock</string>
+    <string name="biometric_gate_body">Confirm with fingerprint or face</string>
+    <string name="biometric_unlock_action">Unlock</string>
+    <string name="biometric_use_password">Use password</string>
+    <string name="biometric_retry">Try again</string>
+    <string name="biometric_prompt_title">Smart Planogram</string>
+    <string name="biometric_prompt_subtitle">Fingerprint or Face ID</string>
+    <string name="biometric_prompt_cancel">Cancel</string>
+    <string name="biometric_enable_confirm">Confirm to enable quick unlock</string>
+    <string name="biometric_unavailable">Biometrics unavailable on this device</string>
+    <string name="profile_biometric">Biometric unlock</string>
+
     <string name="tasks_shift">Shift: 08:00 – 16:00</string>
     <string name="tasks_done_action">Done</string>
     <string name="tasks_title">Tasks</string>
@@ -85,6 +104,7 @@
     <string name="search_empty">Nothing found in offline catalog</string>
     <string name="search_chip_all">All</string>
     <string name="search_found">Found: %1$d</string>
+    <string name="search_found_of_catalog">Found: %1$d · catalog %2$d</string>
     <string name="search_no_location">Map position not set</string>
 
     <string name="profile_role">Merchandiser</string>
@@ -105,7 +125,7 @@
     <string name="profile_shift_body">Current shift: 08:00 – 16:00. Schedule is managed by the store system.</string>
     <string name="profile_help">Help center</string>
     <string name="profile_help_body">Scan a product, open the map, and follow the route to the rack. Search works offline.</string>
-    <string name="profile_about_body">Smart Planogram · version 1.1.0\n\nMobile client for merchandisers: departments and racks, vertical shelf planogram, search and barcode scanner, offline catalog (Room) with sync when online, onboarding, dark theme.\n\nFor: merchandisers and store floor staff.</string>
+    <string name="profile_about_body">Smart Planogram · version 1.2.0\nAuthor: devopstem\n\nMobile client for merchandisers: Firebase Auth + RTDB → Room, biometrics, departments and racks, planogram, search and barcode scanner, offline catalog, onboarding, dark theme.\n\nFor: merchandisers and store floor staff.</string>
     <string name="profile_field_name">Name</string>
     <string name="profile_field_role">Role</string>
     <string name="profile_field_store">Store</string>

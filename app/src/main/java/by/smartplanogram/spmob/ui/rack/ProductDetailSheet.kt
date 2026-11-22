@@ -23,7 +23,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import by.smartplanogram.spmob.R
+import by.smartplanogram.spmob.ui.product.ProductTitleText
 import by.smartplanogram.spmob.ui.product.productIcon
+import androidx.compose.ui.text.style.TextOverflow
 
 data class ProductDetailUi(
     val name: String,
@@ -78,11 +80,11 @@ fun ProductDetailSheet(
                 color = MaterialTheme.colorScheme.secondary,
             )
             Spacer(Modifier.height(8.dp))
-            Text(
+            ProductTitleText(
                 text = detail.name,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 3,
             )
             Spacer(Modifier.height(16.dp))
             DetailRow(stringResource(R.string.product_detail_barcode), detail.barcode)
@@ -116,6 +118,8 @@ private fun DetailRow(label: String, value: String) {
             text = value,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis,
         )
     }
 }

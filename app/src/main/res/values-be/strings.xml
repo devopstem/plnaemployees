@@ -40,6 +40,25 @@
     <string name="profile_logout">Выйсці з сістэмы</string>
     <string name="profile_login">Увайсці</string>
 
+    <string name="login_subtitle">Уваход для супрацоўнікаў крамы</string>
+    <string name="login_field_login">Лагін</string>
+    <string name="login_field_password">Пароль</string>
+    <string name="login_action">Увайсці</string>
+    <string name="login_hint">Уваход працуе і без воблака (убудаваны доступ). Пры сетцы каталог падцягнецца з Firebase у Room.</string>
+    <string name="login_enable_biometric">Адкрываць па адбітку / Face ID</string>
+
+    <string name="biometric_gate_title">Разблакіроўка</string>
+    <string name="biometric_gate_body">Пацвердзіце асобу адбіткам або тварам</string>
+    <string name="biometric_unlock_action">Разблакіраваць</string>
+    <string name="biometric_use_password">Увайсці па паролі</string>
+    <string name="biometric_retry">Паўтарыць</string>
+    <string name="biometric_prompt_title">Smart Planogram</string>
+    <string name="biometric_prompt_subtitle">Адбітак або Face ID</string>
+    <string name="biometric_prompt_cancel">Адмена</string>
+    <string name="biometric_enable_confirm">Пацвердзіце, каб уключыць хуткі ўваход</string>
+    <string name="biometric_unavailable">Біяметрыя недаступная на гэтай прыладзе</string>
+    <string name="profile_biometric">Уваход па біяметрыі</string>
+
     <string name="tasks_shift">Змена: 08:00 – 16:00</string>
     <string name="tasks_done_action">Выканана</string>
     <string name="tasks_title">Задачы</string>
@@ -85,6 +104,7 @@
     <string name="search_empty">Нічога не знойдзена ў афлайн-каталогу</string>
     <string name="search_chip_all">Усе</string>
     <string name="search_found">Знойдзена: %1$d</string>
+    <string name="search_found_of_catalog">Знойдзена: %1$d · у каталогу %2$d</string>
     <string name="search_no_location">Пазіцыя на карце не зададзена</string>
 
     <string name="profile_role">Мерчандайзер</string>
@@ -105,7 +125,7 @@
     <string name="profile_shift_body">Бягучая змена: 08:00 – 16:00. Расклад задаецца ў сістэме крамы.</string>
     <string name="profile_help">Даведка</string>
     <string name="profile_help_body">Скануйце тавар, адкрыйце карту і ідзіце па маршруце да стэлажа. Пошук працуе афлайн.</string>
-    <string name="profile_about_body">Smart Planogram · версія 1.1.0\n\nМабільны кліент для мерчандайзераў: аддзелы і стэлажы, вертыкальная планаграма паліц, пошук і сканер штрыхкода, афлайн-каталог (Room) з сінхранізацыяй пры наяўнасці сеткі, анбордынг, цёмная тэма.\n\nДля каго: мерчандайзеры і персанал гандлёвай залы.</string>
+    <string name="profile_about_body">Smart Planogram · версія 1.2.0\nАўтар: devopstem\n\nМабільны кліент для мерчандайзераў: Firebase Auth + RTDB → Room, біяметрыя, аддзелы і стэлажы, планаграма, пошук і сканер штрыхкода, афлайн-каталог, анбордынг, цёмная тэма.\n\nДля каго: мерчандайзеры і персанал гандлёвай залы.</string>
     <string name="profile_field_name">Імя</string>
     <string name="profile_field_role">Роля</string>
     <string name="profile_field_store">Крама</string>

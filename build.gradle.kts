@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.google.services) apply false
     alias(libs.plugins.detekt)
     alias(libs.plugins.sonar)
 }
@@ -46,7 +47,7 @@ sonar {
         property("sonar.organization", System.getenv("SONAR_ORGANIZATION") ?: "devopstem")
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.projectName", "Smart Planogram")
-        property("sonar.projectVersion", "1.1.0")
+        property("sonar.projectVersion", "1.2.0")
         property("sonar.sourceEncoding", "UTF-8")
         property(
             "sonar.sources",

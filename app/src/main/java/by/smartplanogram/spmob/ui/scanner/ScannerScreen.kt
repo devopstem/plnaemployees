@@ -1,5 +1,6 @@
 package by.smartplanogram.spmob.ui.scanner
 
+import android.os.SystemClock
 import android.util.Size
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -26,11 +27,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -63,10 +65,20 @@ fun ScannerScreen(
     onRequestPermission: () -> Unit,
     onBarcode: (String) -> Unit,
     onClose: () -> Unit,
-    onDemoScan: () -> Unit,
+    /** Bump from Activity to re-arm the camera after errors / onResume. */
+    scanEpoch: Int = 0,
 ) {
     var lastValue by remember { mutableStateOf<String?>(null) }
-    val handled = remember { AtomicBoolean(false) }
+    var lastAcceptedAt by remember { mutableLongStateOf(0L) }
+    var lastAcceptedCode by remember { mutableStateOf<String?>(null) }
+    val armed = remember { AtomicBoolean(true) }
+
+    LaunchedEffect(scanEpoch) {
+        armed.set(true)
+        lastValue = null
+        lastAcceptedCode = null
+        lastAcceptedAt = 0L
+    }
 
     Box(
         modifier = Modifier
@@ -76,10 +88,14 @@ fun ScannerScreen(
         if (cameraGranted) {
             CameraBarcodePreview(
                 onBarcode = { value ->
-                    if (handled.compareAndSet(false, true)) {
-                        lastValue = value
-                        onBarcode(value)
-                    }
+                    val now = SystemClock.elapsedRealtime()
+                    // Ignore duplicate frames of the same code for 2s
+                    if (value == lastAcceptedCode && now - lastAcceptedAt < 2_000L) return@CameraBarcodePreview
+                    if (!armed.compareAndSet(true, false)) return@CameraBarcodePreview
+                    lastAcceptedCode = value
+                    lastAcceptedAt = now
+                    lastValue = value
+                    onBarcode(value)
                 },
             )
         } else {
@@ -161,13 +177,6 @@ fun ScannerScreen(
                         .background(Color.Black.copy(alpha = 0.45f), RoundedCornerShape(8.dp))
                         .padding(horizontal = 12.dp, vertical = 6.dp),
                 )
-                Spacer(Modifier.height(10.dp))
-            }
-            OutlinedButton(onClick = {
-                handled.set(false)
-                onDemoScan()
-            }) {
-                Text(stringResource(R.string.scanner_demo))
             }
         }
     }

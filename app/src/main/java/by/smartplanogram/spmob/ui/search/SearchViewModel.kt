@@ -22,6 +22,8 @@ data class SearchUiState(
     val placeType: String = "",
     val departments: List<DepartmentInfo> = emptyList(),
     val results: List<ProductSearchRow> = emptyList(),
+    val matchTotal: Int = 0,
+    val catalogTotal: Int = 0,
     val suggestions: List<String> = emptyList(),
     val loading: Boolean = true,
 )
@@ -74,6 +76,12 @@ class SearchViewModel(
 
     private suspend fun runSearch() {
         val state = _ui.value
+        val catalogTotal = catalog.productCount()
+        val matchTotal = catalog.searchTotal(
+            query = state.query,
+            zoneCode = state.zoneCode,
+            placeType = state.placeType,
+        )
         val rows = catalog.search(
             query = state.query,
             zoneCode = state.zoneCode,
@@ -87,6 +95,8 @@ class SearchViewModel(
         _ui.update {
             it.copy(
                 results = rows,
+                matchTotal = matchTotal,
+                catalogTotal = catalogTotal,
                 suggestions = suggestions,
                 loading = false,
             )

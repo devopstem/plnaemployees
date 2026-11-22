@@ -267,8 +267,8 @@ private fun ProductPlaceholders(
                             iconHint = product.iconHint,
                         ),
                         contentDescription = product.name,
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.9f),
-                        modifier = Modifier.size(16.dp),
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.95f),
+                        modifier = Modifier.size(18.dp),
                     )
                 }
             }

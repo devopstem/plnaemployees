@@ -17,14 +17,34 @@ class CatalogRepository(private val db: AppDatabase) {
 
     suspend fun categories(): List<String> = db.products().categories()
 
+    suspend fun productCount(): Int = db.products().count()
+
     suspend fun search(
         query: String,
         category: String = "",
         zoneCode: String = "",
         placeType: String = "",
+        limit: Int = 10_000,
     ): List<ProductSearchRow> {
         val storeId = currentStore()?.id ?: return emptyList()
         return db.products().search(
+            storeId = storeId,
+            query = query.trim(),
+            category = category.trim(),
+            zoneCode = zoneCode.trim(),
+            placeType = placeType.trim(),
+            limit = limit,
+        )
+    }
+
+    suspend fun searchTotal(
+        query: String,
+        category: String = "",
+        zoneCode: String = "",
+        placeType: String = "",
+    ): Int {
+        val storeId = currentStore()?.id ?: return 0
+        return db.products().searchCount(
             storeId = storeId,
             query = query.trim(),
             category = category.trim(),
@@ -35,11 +55,27 @@ class CatalogRepository(private val db: AppDatabase) {
 
     suspend fun departments(): List<DepartmentInfo> {
         val storeId = currentStore()?.id ?: return emptyList()
+        val zoneNames = zoneDictionary(storeId)
         return db.racks().departmentIds(storeId).map { id ->
             DepartmentInfo(
                 id = id,
+                name = zoneNames[id].orEmpty(),
                 rackCount = db.racks().countInDepartment(storeId, id),
             )
+        }
+    }
+
+    suspend fun zoneDictionary(storeId: String? = null): Map<String, String> {
+        val id = storeId ?: currentStore()?.id ?: return emptyMap()
+        val json = db.storeMaps().byStore(id)?.json ?: return emptyMap()
+        val root = runCatching { org.json.JSONObject(json) }.getOrNull() ?: return emptyMap()
+        val dict = root.optJSONObject("zoneDictionary") ?: return emptyMap()
+        return buildMap {
+            val keys = dict.keys()
+            while (keys.hasNext()) {
+                val code = keys.next()
+                put(code, dict.optString(code, code))
+            }
         }
     }
 
@@ -63,6 +99,7 @@ class CatalogRepository(private val db: AppDatabase) {
 
 data class DepartmentInfo(
     val id: String,
+    val name: String = "",
     val rackCount: Int,
 )
 

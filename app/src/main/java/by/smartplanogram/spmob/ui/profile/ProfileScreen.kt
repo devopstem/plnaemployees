@@ -24,6 +24,7 @@ import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.outlined.Logout
 import androidx.compose.material.icons.outlined.Brightness6
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.Fingerprint
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Person
@@ -34,12 +35,14 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -50,13 +53,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import by.smartplanogram.spmob.R
 import by.smartplanogram.spmob.SpmobApp
+import by.smartplanogram.spmob.data.auth.BiometricAuth
 import by.smartplanogram.spmob.data.local.entity.UserProfileEntity
 import by.smartplanogram.spmob.data.prefs.AppLanguage
 import by.smartplanogram.spmob.data.prefs.AppThemeMode
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 private enum class ProfilePage { Root, Language, Theme, About }
 
@@ -66,10 +72,14 @@ fun ProfileScreen(wide: Boolean = false) {
     val settings = SpmobApp.instance.settings
     val themeMode by settings.themeMode.collectAsStateWithLifecycle()
     val language by settings.language.collectAsStateWithLifecycle()
-    val loggedIn by settings.loggedIn.collectAsStateWithLifecycle()
+    val authSession by SpmobApp.instance.auth.session.collectAsStateWithLifecycle()
+    val biometricEnabled by settings.biometricEnabled.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val biometricAvailable = remember { BiometricAuth.canAuthenticate(context) }
 
     var user by remember { mutableStateOf<UserProfileEntity?>(null) }
+    var biometricError by remember { mutableStateOf<String?>(null) }
 
     fun applyLanguage(lang: AppLanguage) {
         settings.setLanguage(lang)
@@ -89,14 +99,42 @@ fun ProfileScreen(wide: Boolean = false) {
         ProfilePage.Root -> ProfileRoot(
             wide = wide,
             user = user,
-            loggedIn = loggedIn,
+            loggedIn = authSession.loggedIn,
             themeMode = themeMode,
             language = language,
+            biometricAvailable = biometricAvailable,
+            biometricEnabled = biometricEnabled,
+            biometricError = biometricError,
+            onBiometricChange = { enable ->
+                biometricError = null
+                if (!enable) {
+                    settings.setBiometricEnabled(false)
+                } else {
+                    val activity = context as? FragmentActivity
+                    if (activity == null || !BiometricAuth.canAuthenticate(context)) {
+                        biometricError = BiometricAuth.statusMessage(context)
+                            ?: context.getString(R.string.biometric_unavailable)
+                    } else {
+                        BiometricAuth.prompt(
+                            activity = activity,
+                            title = context.getString(R.string.biometric_prompt_title),
+                            subtitle = context.getString(R.string.biometric_enable_confirm),
+                            negativeButton = context.getString(R.string.biometric_prompt_cancel),
+                            onSuccess = { settings.setBiometricEnabled(true) },
+                            onError = { biometricError = it },
+                        )
+                    }
+                }
+            },
             onLanguage = { page = ProfilePage.Language },
             onTheme = { page = ProfilePage.Theme },
             onAbout = { page = ProfilePage.About },
-            onLogout = { settings.logout() },
-            onLogin = { settings.login() },
+            onLogout = {
+                scope.launch {
+                    SpmobApp.instance.auth.signOut()
+                    SpmobApp.instance.markLoggedOut()
+                }
+            },
         )
         ProfilePage.Language -> ProfileSubPage(
             title = stringResource(R.string.profile_language),
@@ -164,11 +202,14 @@ private fun ProfileRoot(
     loggedIn: Boolean,
     themeMode: AppThemeMode,
     language: AppLanguage,
+    biometricAvailable: Boolean,
+    biometricEnabled: Boolean,
+    biometricError: String?,
+    onBiometricChange: (Boolean) -> Unit,
     onLanguage: () -> Unit,
     onTheme: () -> Unit,
     onAbout: () -> Unit,
     onLogout: () -> Unit,
-    onLogin: () -> Unit,
 ) {
     BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
         val layoutMaxWidth = maxWidth
@@ -239,6 +280,14 @@ private fun ProfileRoot(
 
             Spacer(Modifier.size(20.dp))
             SettingsGroup {
+                if (biometricAvailable) {
+                    SettingsSwitchRow(
+                        icon = Icons.Outlined.Fingerprint,
+                        title = stringResource(R.string.profile_biometric),
+                        checked = biometricEnabled,
+                        onCheckedChange = onBiometricChange,
+                    )
+                }
                 SettingsRow(
                     icon = Icons.Outlined.Language,
                     title = stringResource(R.string.profile_language),
@@ -265,6 +314,14 @@ private fun ProfileRoot(
                     onClick = onAbout,
                 )
             }
+            if (biometricError != null) {
+                Text(
+                    text = biometricError,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(top = 8.dp),
+                )
+            }
 
             Spacer(Modifier.size(20.dp))
             if (loggedIn) {
@@ -281,15 +338,6 @@ private fun ProfileRoot(
                     Icon(Icons.AutoMirrored.Outlined.Logout, contentDescription = null)
                     Spacer(Modifier.size(8.dp))
                     Text(stringResource(R.string.profile_logout))
-                }
-            } else {
-                Button(
-                    onClick = onLogin,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .heightIn(min = 52.dp),
-                ) {
-                    Text(stringResource(R.string.profile_login))
                 }
             }
         }
@@ -337,6 +385,33 @@ private fun SettingsGroup(content: @Composable () -> Unit) {
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
     ) {
         Column(modifier = Modifier.fillMaxWidth(), content = { content() })
+    }
+}
+
+@Composable
+private fun SettingsSwitchRow(
+    icon: ImageVector,
+    title: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface)
+        Text(
+            text = title,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 14.dp),
+        )
+        Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }
 

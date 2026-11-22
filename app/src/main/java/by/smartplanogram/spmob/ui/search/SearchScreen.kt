@@ -60,10 +60,12 @@ import by.smartplanogram.spmob.R
 import by.smartplanogram.spmob.SpmobApp
 import by.smartplanogram.spmob.data.local.entity.ProductSearchRow
 import by.smartplanogram.spmob.ui.departments.departmentTitle
+import by.smartplanogram.spmob.ui.product.ProductTitleText
 import by.smartplanogram.spmob.ui.product.productIcon
 import by.smartplanogram.spmob.ui.rack.RackCarouselActivity
 import by.smartplanogram.spmob.ui.scanner.ScannerActivity
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -145,10 +147,11 @@ fun SearchScreen(
                     ) {
                         Column(modifier = Modifier.padding(vertical = 4.dp)) {
                             state.suggestions.forEach { name ->
-                                Text(
+                                ProductTitleText(
                                     text = name,
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1,
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .clickable { viewModel.onQueryChange(name) }
@@ -220,7 +223,15 @@ fun SearchScreen(
             }
 
             Text(
-                text = stringResource(R.string.search_found, state.results.size),
+                text = if (state.catalogTotal > 0) {
+                    stringResource(
+                        R.string.search_found_of_catalog,
+                        state.matchTotal,
+                        state.catalogTotal,
+                    )
+                } else {
+                    stringResource(R.string.search_found, state.matchTotal)
+                },
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -357,7 +368,7 @@ private fun ProductResultCard(
                     category = row.product.category,
                     iconHint = row.product.iconHint,
                 ),
-                contentDescription = null,
+                contentDescription = row.product.name,
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(36.dp),
             )
@@ -366,16 +377,28 @@ private fun ProductResultCard(
                     .weight(1f)
                     .padding(start = 12.dp),
             ) {
-                Text(
+                ProductTitleText(
                     text = row.product.name,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = 2,
                 )
                 Text(
                     text = row.product.barcode,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                 )
+                if (row.product.category.isNotBlank()) {
+                    Text(
+                        text = row.product.category,
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
             }
         }
     }

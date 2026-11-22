@@ -64,7 +64,8 @@ fun DepartmentsScreen(wide: Boolean = false) {
     }
 
     if (deptId != null) {
-        val title = departmentTitle(deptId)
+        val selected = departments.find { it.id == deptId }
+        val title = departmentTitle(deptId, selected?.name.orEmpty())
         val vm: RackCarouselViewModel = viewModel(
             key = "dept-$deptId",
             factory = RackCarouselViewModel.Factory(SpmobApp.instance.db),
@@ -130,7 +131,7 @@ fun DepartmentsScreen(wide: Boolean = false) {
                     ) {
                         items(departments, key = { it.id }) { dept ->
                             DepartmentCard(
-                                title = departmentTitle(dept.id),
+                                title = departmentTitle(dept.id, dept.name),
                                 subtitle = stringResource(
                                     R.string.departments_racks_count,
                                     dept.rackCount,

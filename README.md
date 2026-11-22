@@ -1,35 +1,41 @@
 # Smart Planogram (spmob)
 
-Мобильное приложение для мерчандайзеров: поиск товара, сканер штрихкода, отделы и **вертикальная планограмма** стеллажа. Каталог работает **офлайн** (Room / SQLite); при сети — проверка обновлений из облачного бандла.
+Мобильный клиент для мерчандайзеров: поиск и сканер товаров, отделы, вертикальная планограмма стеллажа.  
+Каталог: **Firebase Realtime Database → Room (SQLite)** с офлайн-режимом.
 
 | | |
 |---|---|
+| **Author** | **devopstem** |
 | **Package** | `by.smartplanogram.spmob` |
-| **Version** | **1.1.0** (`versionCode` 2) |
+| **Version** | **1.2.0** (`versionCode` 3) |
 | **Min / Target SDK** | 24 / 37 |
 | **UI** | Jetpack Compose · Material 3 |
-| **Data** | Room · SharedPreferences |
+| **Data** | Firebase Auth + RTDB · Room · SharedPreferences |
 | **Native** | C++ / JNI (`plna-core`) — карта + сокет (задел) |
 
 ---
 
-## Возможности (v1.1.0)
+## Возможности (v1.2.0)
 
-- **Главная** — отделы / поиск, сканер, статус синка с временем обновления, недавние стеллажи
-- **Отделы** — компактный список с иконками → планограмма
-- **Планограмма** — edge-to-edge полки, sticky header, тап по товару → детали, scroll к целевой полке + haptic
-- **Поиск** — имя / штрихкод, фильтры отдела и типа места, иконки товара (`iconHint` + keywords)
-- **Сканер** — CameraX + ML Kit → полка; демо-скан без камеры
-- **Профиль** — язык (RU / BE / EN), тема, выход
-- **Онбординг** — короткий тур при первом запуске
-- **Синхронизация** — offline-first; онлайн сравнивает версию бандла и обновляет Room
-- **Системная «Назад»** — закрывает вложенные экраны, не сразу всё приложение
+- **Авторизация**
+  - Firebase Auth (email / employee id + пароль)
+  - Встроенный локальный вход без облака (обфусцированные credentials в коде)
+  - Биометрия: отпечаток / Face ID для повторного открытия приложения
+- **Firebase RTDB → Room** — полный каталог (~6 600+ SKU), зоны магазина, синтез стеллажей
+- **Поиск** — имя / штрихкод, фильтры отдела и типа места, счётчик «найдено / в каталоге», длинные названия с ellipsis, иконки по категории/названию
+- **Отделы + планограмма** — список зон → edge-to-edge полки, иконки товаров, детали по тапу
+- **Сканер** — CameraX + ML Kit; повторное сканирование без перезахода; haptic
+- **Профиль** — язык (RU / BE / EN), тема, биометрия, выход
+- **Синхронизация** — offline-first; при сети обновление каталога из Firebase
+- **Онбординг** и splash при старте
 
 ---
 
 ## Стек
 
 - Kotlin · AGP 9 · Compose BOM · KSP · Room
+- Firebase BOM (Auth, Realtime Database)
+- androidx.biometric
 - CameraX · ML Kit Barcode
 - AppCompat locales · Material Icons Extended
 - CMake / NDK: субмодуль `app/src/main/cpp` → [plna-core-cpp](https://github.com/devopstem/plna-core-cpp)
@@ -39,12 +45,12 @@
 ## Быстрый старт
 
 ```bash
-git clone --recurse-submodules <repo-url>
-cd plnaemployees   # или имя клона
+git clone --recurse-submodules git@github.com:devopstem/plnaemployees.git
+cd plnaemployees
 ./gradlew :app:assembleDebug
 ```
 
-Открыть в **Android Studio** (Ladybug / newer), Sync Gradle, Run на устройстве/эмуляторе.
+Открыть в **Android Studio**, Sync Gradle, Run.
 
 ### Субмодуль C++
 
@@ -52,17 +58,13 @@ cd plnaemployees   # или имя клона
 git submodule update --init --recursive
 ```
 
-Без субмодуля native-сборка не соберётся.
+### Firebase
 
-### Облачный endpoint (опционально)
+- `app/google-services.json` — проект `spmob-120212`
+- RTDB rules: чтение для `auth != null`
+- После локального/Firebase входа каталог тянется в Room
 
-Файл `app/src/main/assets/demo/cloud_endpoint.json`:
-
-```json
-{ "cloudUrl": "https://example.com/catalog.json", "note": "…" }
-```
-
-Пустой `cloudUrl` → используется пакетный `plna_cloud_bundle.json`.
+Локальный bootstrap-логин (без облака): см. `EmbeddedLocalAuth` в коде (не в assets).
 
 ---
 
@@ -71,14 +73,18 @@ git submodule update --init --recursive
 ```
 app/src/main/
 ├── java/by/smartplanogram/spmob/
-│   ├── MainActivity.kt          # Splash → shell
-│   ├── SpmobApp.kt              # DI-lite, seed, sync, native init
-│   ├── data/                    # Room, seed, sync, prefs, repos
+│   ├── MainActivity.kt          # Splash → login / biometric → shell
+│   ├── SpmobApp.kt              # Room, Auth, sync, native init
+│   ├── data/
+│   │   ├── auth/                # Firebase + local + biometric
+│   │   ├── firebase/            # RTDB import / client
+│   │   ├── local/               # Room entities / DAOs
+│   │   ├── sync/                # CatalogSyncManager
+│   │   └── prefs/
 │   └── ui/                      # home, departments, rack, search,
-│                                # scanner, profile, onboarding, splash
-├── java/by/smartplanogram/plnanote/   # JNI bridges (map + network)
+│                                # scanner, profile, auth, onboarding
+├── java/by/smartplanogram/plnanote/   # JNI bridges
 ├── cpp/                         # git submodule plna-core
-├── assets/demo/                 # локальный + cloud JSON бандлы
 └── res/                         # темы, строки RU/EN/BE, иконка
 ```
 
@@ -88,7 +94,7 @@ app/src/main/
 
 ## Локализация
 
-Ресурсы: `values` (RU), `values-en`, `values-be`. Язык задаётся в профиле через `AppCompatDelegate.setApplicationLocales`.
+`values` (RU), `values-en`, `values-be`. Язык — в профиле (`AppCompatDelegate.setApplicationLocales`).
 
 ---
 
@@ -98,24 +104,50 @@ app/src/main/
 ./gradlew :app:assembleRelease
 ```
 
-Подпись — через стандартный `signingConfigs` (добавить перед публикацией в Store).
+Перед Store: `signingConfigs`, ProGuard/R8 по необходимости.
 
 ---
 
-## Лицензия native-ядра
+## Публикация (чеклист)
 
-См. `app/src/main/cpp/LICENSE` (субмодуль).
+```bash
+# 1) Проверка
+./gradlew :app:assembleDebug detekt
+
+# 2) Коммит релиза
+git add -A
+git commit -m "$(cat <<'EOF'
+Release 1.2.0: Firebase auth, biometrics, catalog sync, scanner & icons
+
+EOF
+)"
+
+# 3) Тег
+git tag -a v1.2.0 -m "Smart Planogram 1.2.0 by devopstem"
+
+# 4) Push
+git push origin HEAD
+git push origin v1.2.0
+```
+
+GitHub Release: заметки из [CHANGELOG.md](CHANGELOG.md) секции `1.2.0`.  
+Полный чеклист: [docs/PUBLISH_CHECKLIST.md](docs/PUBLISH_CHECKLIST.md).
 
 ---
 
 ## CI/CD
 
-GitHub Actions (Detekt · unit tests · assemble · **SonarCloud quality gate**) + CodeQL + Dependabot.
+GitHub Actions: Detekt · unit tests · assemble · SonarCloud · CodeQL · Dependabot.  
+Инструкция: [docs/CI_CD.md](docs/CI_CD.md). Secret: `SONAR_TOKEN`.
 
-Полная инструкция: [docs/CI_CD.md](docs/CI_CD.md).
-
-Нужный secret: `SONAR_TOKEN`. Опционально vars: `SONAR_PROJECT_KEY`, `SONAR_ORGANIZATION`.
+---
 
 ## Changelog
 
 См. [CHANGELOG.md](CHANGELOG.md).
+
+---
+
+## Author
+
+**devopstem** · [github.com/devopstem](https://github.com/devopstem)
